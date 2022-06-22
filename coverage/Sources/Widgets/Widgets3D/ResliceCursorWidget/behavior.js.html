@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">24.13% </span>
+                <span class="strong">24.27% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/174</span>
+                <span class='fraction'>42/173</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">24.27% </span>
+                <span class="strong">24.41% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>42/173</span>
+                <span class='fraction'>42/172</span>
             </div>
         
             
@@ -438,16 +438,7 @@
 <a name='L373'></a><a href='#L373'>373</a>
 <a name='L374'></a><a href='#L374'>374</a>
 <a name='L375'></a><a href='#L375'>375</a>
-<a name='L376'></a><a href='#L376'>376</a>
-<a name='L377'></a><a href='#L377'>377</a>
-<a name='L378'></a><a href='#L378'>378</a>
-<a name='L379'></a><a href='#L379'>379</a>
-<a name='L380'></a><a href='#L380'>380</a>
-<a name='L381'></a><a href='#L381'>381</a>
-<a name='L382'></a><a href='#L382'>382</a>
-<a name='L383'></a><a href='#L383'>383</a>
-<a name='L384'></a><a href='#L384'>384</a>
-<a name='L385'></a><a href='#L385'>385</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L376'></a><a href='#L376'>376</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -538,9 +529,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -654,13 +642,6 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -669,6 +650,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -921,10 +903,7 @@ export default function widgetBehavior(publicAPI, model) {
 <span class="cstat-no" title="statement not covered" >    if (isScrolling) {</span>
 <span class="cstat-no" title="statement not covered" >      if (model.previousPosition.y !== callData.position.y) {</span>
         const step = <span class="cstat-no" title="statement not covered" >model.previousPosition.y - callData.position.y;</span>
-<span class="cstat-no" title="statement not covered" >        publicAPI.translateCenterOnCurrentDirection(</span>
-          step,
-          callData.pokedRenderer
-        );
+<span class="cstat-no" title="statement not covered" >        publicAPI.translateCenterOnPlaneDirection(step);</span>
 <span class="cstat-no" title="statement not covered" >        model.previousPosition = callData.position;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        publicAPI.invokeInternalInteractionEvent();</span>
@@ -967,7 +946,7 @@ export default function widgetBehavior(publicAPI, model) {
   publicAPI.handleMouseWheel = <span class="fstat-no" title="function not covered" >(c</span>alldata) =&gt; {
     const step = <span class="cstat-no" title="statement not covered" >calldata.spinY;</span>
 <span class="cstat-no" title="statement not covered" >    isScrolling = true;</span>
-<span class="cstat-no" title="statement not covered" >    publicAPI.translateCenterOnCurrentDirection(step, calldata.pokedRenderer);</span>
+<span class="cstat-no" title="statement not covered" >    publicAPI.translateCenterOnPlaneDirection(step);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    publicAPI.invokeInternalInteractionEvent();</span>
 <span class="cstat-no" title="statement not covered" >    isScrolling = false;</span>
@@ -1035,15 +1014,8 @@ export default function widgetBehavior(publicAPI, model) {
     });
   };
 &nbsp;
-  publicAPI.translateCenterOnCurrentDirection = <span class="fstat-no" title="function not covered" >(n</span>bSteps, renderer) =&gt; {
-    const dirProj = <span class="cstat-no" title="statement not covered" >renderer</span>
-      .getRenderWindow()
-      .getRenderers()[0]
-      .getActiveCamera()
-      .getDirectionOfProjection();
-&nbsp;
-    // Direction of the projection is the inverse of what we want
-    const direction = <span class="cstat-no" title="statement not covered" >vtkMath.multiplyScalar(dirProj, -1);</span>
+  publicAPI.translateCenterOnPlaneDirection = <span class="fstat-no" title="function not covered" >(n</span>bSteps) =&gt; {
+    const dirProj = <span class="cstat-no" title="statement not covered" >model.widgetState.getPlanes()[model.viewType].normal;</span>
 &nbsp;
     const oldCenter = <span class="cstat-no" title="statement not covered" >model.widgetState.getCenter();</span>
     const image = <span class="cstat-no" title="statement not covered" >model.widgetState.getImage();</span>
@@ -1053,13 +1025,14 @@ export default function widgetBehavior(publicAPI, model) {
     // https://math.stackexchange.com/questions/71423/what-is-the-term-for-the-projection-of-a-vector-onto-the-unit-cube
     const absDirProj = <span class="cstat-no" title="statement not covered" >dirProj.map(<span class="fstat-no" title="function not covered" >(v</span>alue) =&gt; <span class="cstat-no" title="statement not covered" >Math.abs(value))</span>;</span>
     const index = <span class="cstat-no" title="statement not covered" >absDirProj.indexOf(Math.max(...absDirProj));</span>
-    const movingFactor = <span class="cstat-no" title="statement not covered" >nbSteps * (imageSpacing[index] / dirProj[index]);</span>
+    const movingFactor =
+<span class="cstat-no" title="statement not covered" >      (nbSteps * imageSpacing[index]) / Math.abs(dirProj[index]);</span>
 &nbsp;
     // Define the potentially new center
     let newCenter = <span class="cstat-no" title="statement not covered" >[</span>
-      oldCenter[0] + movingFactor * direction[0],
-      oldCenter[1] + movingFactor * direction[1],
-      oldCenter[2] + movingFactor * direction[2],
+      oldCenter[0] + movingFactor * dirProj[0],
+      oldCenter[1] + movingFactor * dirProj[1],
+      oldCenter[2] + movingFactor * dirProj[2],
     ];
 <span class="cstat-no" title="statement not covered" >    newCenter = publicAPI.getBoundedCenter(newCenter);</span>
 &nbsp;
@@ -1222,7 +1195,7 @@ export default function widgetBehavior(publicAPI, model) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Jun 16 2022 13:46:46 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 22 2022 20:15:02 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
