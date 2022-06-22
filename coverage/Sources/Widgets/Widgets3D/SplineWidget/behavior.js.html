@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">24.59% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/183</span>
+                <span class='fraction'>46/184</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0.9% </span>
+                <span class="strong">0.89% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/110</span>
+                <span class='fraction'>1/112</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">24.59% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/183</span>
+                <span class='fraction'>46/184</span>
             </div>
         
             
@@ -481,6 +481,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -685,7 +686,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -701,13 +701,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -894,6 +894,7 @@ import { vec3 } from 'gl-matrix';
 &nbsp;
 export default function widgetBehavior(publicAPI, model) {
   model.classHierarchy.push('vtkSplineWidgetProp');
+  model._isDragging = false;
 &nbsp;
   model.keysDown = {};
   model.moveHandle = model.widgetState.getMoveHandle();
@@ -1097,7 +1098,6 @@ export default function widgetBehavior(publicAPI, model) {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (model.activeState === model.moveHandle) {</span>
 <span class="cstat-no" title="statement not covered" >      if (model.widgetState.getHandleList().length === 0) {</span>
-<span class="cstat-no" title="statement not covered" >        publicAPI.invokeStartInteractionEvent();</span>
 <span class="cstat-no" title="statement not covered" >        addPoint();</span>
       } else {
         const hoveredHandle = <span class="cstat-no" title="statement not covered" >getHoveredHandle();</span>
@@ -1106,21 +1106,21 @@ export default function widgetBehavior(publicAPI, model) {
 <span class="cstat-no" title="statement not covered" >          model.moveHandle.setVisible(false);</span>
 <span class="cstat-no" title="statement not covered" >          model.activeState = hoveredHandle;</span>
 <span class="cstat-no" title="statement not covered" >          hoveredHandle.activate();</span>
-<span class="cstat-no" title="statement not covered" >          model.isDragging = true;</span>
+<span class="cstat-no" title="statement not covered" >          model._isDragging = true;</span>
 <span class="cstat-no" title="statement not covered" >          model.lastHandle.setVisible(true);</span>
         } else {
 <span class="cstat-no" title="statement not covered" >          addPoint();</span>
         }
       }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      model.freeHand = publicAPI.getAllowFreehand() &amp;&amp; !model.isDragging;</span>
-    } else {
-<span class="cstat-no" title="statement not covered" >      model.isDragging = true;</span>
+<span class="cstat-no" title="statement not covered" >      model.freeHand = publicAPI.getAllowFreehand() &amp;&amp; !model._isDragging;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (model.dragable) {</span>
+<span class="cstat-no" title="statement not covered" >      model._isDragging = true;</span>
 <span class="cstat-no" title="statement not covered" >      model._apiSpecificRenderWindow.setCursor('grabbing');</span>
 <span class="cstat-no" title="statement not covered" >      model._interactor.requestAnimation(publicAPI);</span>
-<span class="cstat-no" title="statement not covered" >      publicAPI.invokeStartInteractionEvent();</span>
     }
 &nbsp;
+<span class="cstat-no" title="statement not covered" >    publicAPI.invokeStartInteractionEvent();</span>
 <span class="cstat-no" title="statement not covered" >    return macro.EVENT_ABORT;</span>
   };
 &nbsp;
@@ -1129,7 +1129,7 @@ export default function widgetBehavior(publicAPI, model) {
   // --------------------------------------------------------------------------
 &nbsp;
   publicAPI.handleLeftButtonRelease = <span class="fstat-no" title="function not covered" >(e</span>) =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (model.isDragging) {</span>
+<span class="cstat-no" title="statement not covered" >    if (model._isDragging) {</span>
 <span class="cstat-no" title="statement not covered" >      if (!model.hasFocus) {</span>
 <span class="cstat-no" title="statement not covered" >        model._apiSpecificRenderWindow.setCursor(model.defaultCursor);</span>
 <span class="cstat-no" title="statement not covered" >        model.widgetState.deactivate();</span>
@@ -1172,8 +1172,8 @@ export default function widgetBehavior(publicAPI, model) {
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    model.freeHand = false;</span>
-<span class="cstat-no" title="statement not covered" >    model.isDragging = false;</span>
 <span class="cstat-no" title="statement not covered" >    model.draggedPoint = false;</span>
+<span class="cstat-no" title="statement not covered" >    model._isDragging = false;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return model.hasFocus ? macro.EVENT_ABORT : macro.VOID;</span>
   };
@@ -1204,7 +1204,7 @@ export default function widgetBehavior(publicAPI, model) {
 <span class="cstat-no" title="statement not covered" >      if (hoveredHandle !== model.firstHandle) {</span>
 <span class="cstat-no" title="statement not covered" >        model._apiSpecificRenderWindow.setCursor('grabbing');</span>
       }
-    } else <span class="cstat-no" title="statement not covered" >if (!model.isDragging &amp;&amp; model.hasFocus) {</span>
+    } else <span class="cstat-no" title="statement not covered" >if (!model._isDragging &amp;&amp; model.hasFocus) {</span>
 <span class="cstat-no" title="statement not covered" >      model.moveHandle.setVisible(true);</span>
 <span class="cstat-no" title="statement not covered" >      model._apiSpecificRenderWindow.setCursor(model.defaultCursor);</span>
     }
@@ -1215,10 +1215,10 @@ export default function widgetBehavior(publicAPI, model) {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (</span>
       worldCoords.length &amp;&amp;
-      (model.isDragging || model.activeState === model.moveHandle)
+      (model._isDragging || model.activeState === model.moveHandle)
     ) {
 <span class="cstat-no" title="statement not covered" >      model.activeState.setOrigin(worldCoords);</span>
-<span class="cstat-no" title="statement not covered" >      if (model.isDragging) {</span>
+<span class="cstat-no" title="statement not covered" >      if (model._isDragging) {</span>
 <span class="cstat-no" title="statement not covered" >        model.draggedPoint = true;</span>
       }
 <span class="cstat-no" title="statement not covered" >      if (model.freeHand &amp;&amp; model.activeState === model.moveHandle) {</span>
@@ -1309,7 +1309,7 @@ export default function widgetBehavior(publicAPI, model) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Jun 22 2022 20:15:02 GMT+0000 (Coordinated Universal Time)
+                at Wed Jun 22 2022 20:27:28 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
