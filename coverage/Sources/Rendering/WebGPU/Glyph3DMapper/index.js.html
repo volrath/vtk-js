@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">4.08% </span>
+                <span class="strong">3.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/98</span>
+                <span class='fraction'>4/103</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">4.12% </span>
+                <span class="strong">3.92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/97</span>
+                <span class='fraction'>4/102</span>
             </div>
         
             
@@ -293,7 +293,16 @@
 <a name='L228'></a><a href='#L228'>228</a>
 <a name='L229'></a><a href='#L229'>229</a>
 <a name='L230'></a><a href='#L230'>230</a>
-<a name='L231'></a><a href='#L231'>231</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L231'></a><a href='#L231'>231</a>
+<a name='L232'></a><a href='#L232'>232</a>
+<a name='L233'></a><a href='#L233'>233</a>
+<a name='L234'></a><a href='#L234'>234</a>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -305,6 +314,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -536,6 +554,15 @@ function <span class="fstat-no" title="function not covered" >vtkWebGPUGlyph3DCe
 &nbsp;
   const superClass = <span class="cstat-no" title="statement not covered" >{ ...publicAPI };</span>
 &nbsp;
+<span class="cstat-no" title="statement not covered" >  publicAPI.setGlyphInstances = <span class="fstat-no" title="function not covered" >(v</span>al) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    model.glyphInstances = val;</span>
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  publicAPI.updateBuffers = <span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    superClass.updateBuffers();</span>
+<span class="cstat-no" title="statement not covered" >    publicAPI.setNumberOfInstances(model.glyphInstances);</span>
+  };
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  publicAPI.replaceShaderPosition = <span class="fstat-no" title="function not covered" >(h</span>ash, pipeline, vertexInput) =&gt; {</span>
     const vDesc = <span class="cstat-no" title="statement not covered" >pipeline.getShaderDescription('vertex');</span>
 <span class="cstat-no" title="statement not covered" >    vDesc.addBuiltinInput('u32', '@builtin(instance_index) instanceIndex');</span>
@@ -670,7 +697,7 @@ function <span class="fstat-no" title="function not covered" >vtkWebGPUGlyph3DMa
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      for (let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; model.children.length; i++) {</span>
         const cellMapper = <span class="cstat-no" title="statement not covered" >model.children[i];</span>
-<span class="cstat-no" title="statement not covered" >        cellMapper.setNumberOfInstances(model.numInstances);</span>
+<span class="cstat-no" title="statement not covered" >        cellMapper.setGlyphInstances(model.numInstances);</span>
       }
     }
   };
@@ -760,7 +787,7 @@ registerOverride('vtkGlyph3DMapper', newInstance);
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Jun 30 2022 14:50:22 GMT+0000 (Coordinated Universal Time)
+                at Thu Jun 30 2022 15:50:48 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
