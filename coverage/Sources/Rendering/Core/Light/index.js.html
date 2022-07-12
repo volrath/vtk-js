@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.21% </span>
+                <span class="strong">65.3% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/47</span>
+                <span class='fraction'>32/49</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.33% </span>
+                <span class="strong">53.84% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/12</span>
+                <span class='fraction'>7/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.45% </span>
+                <span class="strong">65.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/44</span>
+                <span class='fraction'>30/46</span>
             </div>
         
             
@@ -205,7 +205,14 @@
 <a name='L140'></a><a href='#L140'>140</a>
 <a name='L141'></a><a href='#L141'>141</a>
 <a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -250,10 +257,15 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">183x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">183x</span>
@@ -314,11 +326,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">183x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">183x</span>
 <span class="cline-any cline-yes">183x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -389,13 +403,18 @@ function vtkLight(publicAPI, model) {
 &nbsp;
   publicAPI.getDirection = () =&gt; {
     if (model.directionMTime &lt; model.mtime) {
-      model.direction[0] = model.focalPoint[0] - model.position[0];
-      model.direction[1] = model.focalPoint[1] - model.position[1];
-      model.direction[2] = model.focalPoint[2] - model.position[2];
+      vec3.sub(model.direction, model.focalPoint, model.position);
       vtkMath.normalize(model.direction);
       model.directionMTime = model.mtime;
     }
     return model.direction;
+  };
+&nbsp;
+  // Sets the direction from a vec3 instead of a focal point
+  publicAPI.setDirection = <span class="fstat-no" title="function not covered" >(d</span>irectionVector) =&gt; {
+    const newFocalPoint = <span class="cstat-no" title="statement not covered" >new Float64Array(3);</span>
+<span class="cstat-no" title="statement not covered" >    vec3.sub(newFocalPoint, model.position, directionVector);</span>
+<span class="cstat-no" title="statement not covered" >    model.focalPoint = newFocalPoint;</span>
   };
 &nbsp;
   publicAPI.setDirectionAngle = <span class="fstat-no" title="function not covered" >(e</span>levation, azimuth) =&gt; {
@@ -445,6 +464,7 @@ const DEFAULT_VALUES = {
   positional: false,
   exponent: 1,
   coneAngle: 30,
+  coneFalloff: 5,
   attenuationValues: [1, 0, 0],
   transformMatrix: null,
   lightType: 'SceneLight',
@@ -466,6 +486,7 @@ export function extend(publicAPI, model, initialValues = <span class="branch-0 c
     'positional',
     'exponent',
     'coneAngle',
+    'coneFalloff',
     'transformMatrix',
     'lightType',
     'shadowAttenuation',
@@ -496,7 +517,7 @@ export default { newInstance, extend, LIGHT_TYPES };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Jul 07 2022 17:09:02 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 12 2022 15:54:57 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
