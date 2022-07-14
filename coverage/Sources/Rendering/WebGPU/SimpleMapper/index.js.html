@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">2.94% </span>
+                <span class="strong">2.91% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/136</span>
+                <span class='fraction'>4/137</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/25</span>
+                <span class='fraction'>0/27</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">3% </span>
+                <span class="strong">2.98% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/133</span>
+                <span class='fraction'>4/134</span>
             </div>
         
             
@@ -495,7 +495,10 @@
 <a name='L430'></a><a href='#L430'>430</a>
 <a name='L431'></a><a href='#L431'>431</a>
 <a name='L432'></a><a href='#L432'>432</a>
-<a name='L433'></a><a href='#L433'>433</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L433'></a><a href='#L433'>433</a>
+<a name='L434'></a><a href='#L434'>434</a>
+<a name='L435'></a><a href='#L435'>435</a>
+<a name='L436'></a><a href='#L436'>436</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -785,18 +788,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -807,6 +799,21 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -832,7 +839,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1217,6 +1223,10 @@ function <span class="fstat-no" title="function not covered" >vtkWebGPUSimpleMap
     // bind the mapper bind group
 <span class="cstat-no" title="statement not covered" >    renderEncoder.activateBindGroup(model.bindGroup);</span>
 &nbsp;
+<span class="cstat-no" title="statement not covered" >    if (model.WebGPURenderer) {</span>
+<span class="cstat-no" title="statement not covered" >      model.WebGPURenderer.bindUBO(renderEncoder);</span>
+    }
+&nbsp;
     // bind the vertex input
 <span class="cstat-no" title="statement not covered" >    pipeline.bindVertexInput(renderEncoder, model.vertexInput);</span>
     const indexBuffer = <span class="cstat-no" title="statement not covered" >model.vertexInput.getIndexBuffer();</span>
@@ -1266,7 +1276,6 @@ function <span class="fstat-no" title="function not covered" >vtkWebGPUSimpleMap
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      if (model.WebGPURenderer) {</span>
 <span class="cstat-no" title="statement not covered" >        model.pipeline.addBindGroupLayout(model.WebGPURenderer.getBindGroup());</span>
-<span class="cstat-no" title="statement not covered" >        model.pipeline.addDrawCallback(model.WebGPURenderer.bindUBO);</span>
       }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      model.pipeline.addBindGroupLayout(model.bindGroup);</span>
@@ -1366,7 +1375,7 @@ export default { newInstance, extend };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Jul 13 2022 18:41:08 GMT+0000 (Coordinated Universal Time)
+                at Thu Jul 14 2022 18:48:09 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
